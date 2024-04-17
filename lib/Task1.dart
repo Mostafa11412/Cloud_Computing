@@ -1,0 +1,108 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+
+class Task1 extends StatefulWidget {
+  const Task1({super.key});
+
+  @override
+  State<Task1> createState() => _Task1State();
+}
+
+class _Task1State extends State<Task1> {
+  CollectionReference Notifications =
+      FirebaseFirestore.instance.collection("Notifications");
+  int notificationCounter = 1;
+  List<QueryDocumentSnapshot> data = [];
+
+  @override
+  void initState() {
+    FirebaseMessaging.instance.subscribeToTopic("LAB");
+    getToken();
+    getNotification();
+    readNotification();
+    super.initState();
+  }
+
+  getToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("==================================");
+    print("TOKEN : $token");
+  }
+
+  getNotification() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (message.notification != null) {
+        await Notifications.add({
+          "Notificaton number ": notificationCounter,
+          "title": message.notification!.title,
+          "body": message.notification!.body,
+          "key": message.data['key-test'] ?? '',
+        });
+        notificationCounter++;
+      }
+    });
+  }
+
+  readNotification() async {
+    QuerySnapshot qs =
+        await FirebaseFirestore.instance.collection('Notifications').get();
+    data = [];
+    data.addAll(qs.docs);
+
+    setState(() {});
+  }
+
+  Future<dynamic> refresh() async {
+    readNotification();
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Notifications',
+            style: TextStyle(fontSize: 40),
+          ),
+          centerTitle: true,
+          actions: [
+            ElevatedButton(onPressed: refresh, child: Icon(Icons.refresh)),
+          ],
+        ),
+        body: ListView.builder(
+          itemCount: data.length,
+          itemBuilder: (context, i) {
+            return Card(
+              child: Column(
+                children: [
+                  Text(
+                    "Notification :  ${data[i]['Notificaton number ']}",
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    "Title : ${data[i]['title']}",
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    "Body : ${data[i]['body']}",
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  data[i]['key'] == ''
+                      ? Text('')
+                      : Text(
+                          "Key : ${data[i]['key']}",
+                          style: TextStyle(fontSize: 30),
+                        )
+                ],
+              ),
+            );
+          },
+        ));
+  }
+}

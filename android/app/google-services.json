@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "266568990908",
+    "firebase_url": "https://cloud-computing-lab-61a9c-default-rtdb.firebaseio.com",
+    "project_id": "cloud-computing-lab-61a9c",
+    "storage_bucket": "cloud-computing-lab-61a9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266568990908:android:4f30cc102a6d95ce6e10b9",
+        "android_client_info": {
+          "package_name": "com.example.cloud_computing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvlyuPiZo-1GUdGELMkLZ9Hu52gTmyDoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266568990908:android:c630bb4a2d616d7b6e10b9",
+        "android_client_info": {
+          "package_name": "com.example.cloud_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvlyuPiZo-1GUdGELMkLZ9Hu52gTmyDoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
