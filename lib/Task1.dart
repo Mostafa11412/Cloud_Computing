@@ -10,16 +10,15 @@ class Task1 extends StatefulWidget {
 }
 
 class _Task1State extends State<Task1> {
-  CollectionReference Notifications =
-      FirebaseFirestore.instance.collection("Notifications");
-  int notificationCounter = 1;
   List<QueryDocumentSnapshot> data = [];
 
   @override
   void initState() {
     FirebaseMessaging.instance.subscribeToTopic("LAB");
+
+    FirebaseMessaging.onMessage.listen(foregroundNotificationHandler);
+
     getToken();
-    getNotification();
     readNotification();
     super.initState();
   }
@@ -30,18 +29,18 @@ class _Task1State extends State<Task1> {
     print("TOKEN : $token");
   }
 
-  getNotification() async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      if (message.notification != null) {
-        await Notifications.add({
-          "Notificaton number ": notificationCounter,
-          "title": message.notification!.title,
-          "body": message.notification!.body,
-          "key": message.data['key-test'] ?? '',
-        });
-        notificationCounter++;
-      }
-    });
+  void foregroundNotificationHandler(RemoteMessage message) async {
+    if (message.notification != null) {
+      CollectionReference Notifications =
+          FirebaseFirestore.instance.collection("Notifications");
+
+      await Notifications.add({
+        "Date Time": message.sentTime.toString(),
+        "title": message.notification!.title,
+        "body": message.notification!.body,
+        "key": message.data['key-test'] ?? null,
+      });
+    }
   }
 
   readNotification() async {
@@ -76,7 +75,8 @@ class _Task1State extends State<Task1> {
               child: Column(
                 children: [
                   Text(
-                    "Notification :  ${data[i]['Notificaton number ']}",
+                    '''          Data/Time :
+${data[i]['Date Time']}''',
                     style: TextStyle(
                       fontSize: 30,
                     ),
@@ -93,7 +93,7 @@ class _Task1State extends State<Task1> {
                     "Body : ${data[i]['body']}",
                     style: TextStyle(fontSize: 30),
                   ),
-                  data[i]['key'] == ''
+                  data[i]['key'] == null
                       ? Text('')
                       : Text(
                           "Key : ${data[i]['key']}",
