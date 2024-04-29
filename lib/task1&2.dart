@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class Task1 extends StatefulWidget {
+  static const String routeName = "Task1";
   const Task1({super.key});
 
   @override

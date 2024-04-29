@@ -1,5 +1,8 @@
-import 'package:cloud_computing/Task1.dart';
+import 'package:cloud_computing/home.dart';
+import 'package:cloud_computing/task1&2.dart';
 import 'package:cloud_computing/firebase_options.dart';
+import 'package:cloud_computing/task3.dart';
+import 'package:cloud_computing/task4.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -20,7 +23,6 @@ Future<void> BackgroundMessageHandler(RemoteMessage message) async {
       "key": message.data['key-test'] ?? null,
     });
   }
-
 }
 
 void main() async {
@@ -37,6 +39,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Task1());
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: Home.routeName,
+        routes: {
+          Home.routeName: (context) => Home(),
+          Task1.routeName: (context) => Task1(),
+          Task3.routeName: (context) => Task3(),
+          Task4.routeName: (context) => Task4(),
+        });
   }
 }
