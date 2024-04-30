@@ -40,12 +40,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          centerTitle: true,
-          titleTextStyle: TextStyle(color: Colors.black,fontSize: 30,fontWeight: FontWeight.bold)
-        )
-      ),
+        theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                centerTitle: true,
+                titleTextStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold))),
         debugShowCheckedModeBanner: false,
         initialRoute: Home.routeName,
         routes: {
