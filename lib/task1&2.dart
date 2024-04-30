@@ -34,6 +34,7 @@ class _Task1State extends State<Task1> {
     if (message.notification != null) {
       CollectionReference Notifications =
           FirebaseFirestore.instance.collection("Notifications");
+      
 
       await Notifications.add({
         "Date Time": message.sentTime.toString(),
