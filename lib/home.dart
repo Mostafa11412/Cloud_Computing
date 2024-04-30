@@ -1,6 +1,6 @@
-import 'package:cloud_computing/task1&2.dart';
-import 'package:cloud_computing/task3.dart';
-import 'package:cloud_computing/task4.dart';
+import 'package:cloud_computing/tasks/task1&2.dart';
+import 'package:cloud_computing/tasks/task3.dart';
+import 'package:cloud_computing/tasks/task4.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -10,6 +10,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Cloud Computing Tasks"),),
       body: Container(
           child: ListView(children: [
             Container(

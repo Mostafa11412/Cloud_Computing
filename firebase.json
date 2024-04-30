@@ -1,1 +1,16 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"cloud-computing-lab-61a9c","appId":"1:266568990908:android:4f30cc102a6d95ce6e10b9","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"cloud-computing-lab-61a9c","configurations":{"android":"1:266568990908:android:4f30cc102a6d95ce6e10b9","ios":"1:266568990908:ios:58997310aceec47d6e10b9","macos":"1:266568990908:ios:58997310aceec47d6e10b9","web":"1:266568990908:web:8e8a203af01f56d26e10b9","windows":"1:266568990908:web:fc6e7258d69c4a9a6e10b9"}}}}}}
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

@@ -1,8 +1,8 @@
 import 'package:cloud_computing/home.dart';
-import 'package:cloud_computing/task1&2.dart';
-import 'package:cloud_computing/firebase_options.dart';
-import 'package:cloud_computing/task3.dart';
-import 'package:cloud_computing/task4.dart';
+import 'package:cloud_computing/tasks/task1&2.dart';
+import 'package:cloud_computing/firebase/firebase_options.dart';
+import 'package:cloud_computing/tasks/task3.dart';
+import 'package:cloud_computing/tasks/task4.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -40,6 +40,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          titleTextStyle: TextStyle(color: Colors.black,fontSize: 30,fontWeight: FontWeight.bold)
+        )
+      ),
         debugShowCheckedModeBanner: false,
         initialRoute: Home.routeName,
         routes: {

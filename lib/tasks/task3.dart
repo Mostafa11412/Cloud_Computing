@@ -1,5 +1,3 @@
-import 'dart:ffi';
-import 'dart:typed_data';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -19,7 +17,7 @@ class _Task3State extends State<Task3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackButton()),
+      appBar: AppBar(title: Text("Task 3"),),
       body: Container(
         child: Center(
           child: ElevatedButton(
@@ -42,18 +40,22 @@ class _Task3State extends State<Task3> {
 
       if (result != null) {
         for (PlatformFile pickedFile in result.files) {
+          print(pickedFile.path);
           final ref = await FirebaseStorage.instance
               .ref('Task3_Files/${pickedFile.name}');
           final file = File(pickedFile.path!);
           await ref.putFile(file);
         }
+        
 
         final snackBar = SnackBar(
           content: Text('File Uploaded to FireBase Storage Succefully'),
         );
 
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        // UrlModel model = UrlModel(url: );
         await saveUrls();
+        // FirebaseFunctions.addUrl(model);
       }
     } catch (e) {
       print("Error : $e");
@@ -63,6 +65,7 @@ class _Task3State extends State<Task3> {
   Future<void> saveUrls() async {
     CollectionReference filesUrls =
         FirebaseFirestore.instance.collection("filesUrls");
+
 
     QuerySnapshot existingUrlsSnapshot = await filesUrls.get();
     Set<String> existingUrls =
@@ -75,7 +78,7 @@ class _Task3State extends State<Task3> {
       String url = await i.getDownloadURL();
 
       if (!existingUrls.contains(url)) {
-        filesUrls.add({"url": url});
+        filesUrls.add({"url": url , "id" : filesUrls.doc().id});
       }
     }
   }
