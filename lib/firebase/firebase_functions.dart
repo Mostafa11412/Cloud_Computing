@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_computing/models/url_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -8,7 +6,7 @@ class FirebaseFunctions {
     return FirebaseFirestore.instance.collection('filesUrls')
     .withConverter<UrlModel>(
       fromFirestore: (snapshot, options) {
-        log(snapshot['id']);
+        //log(snapshot['id']);
         return UrlModel.fromJson(snapshot.data()!);
       },
       toFirestore: (value, options) {
@@ -22,10 +20,19 @@ class FirebaseFunctions {
     return collection.snapshots();
   }
 
-  static Future<void> deleteUrl(String id){
-    log(getUrlCollection().doc(id).toString());
-    return getUrlCollection().doc(id).delete();
+  static Future<void> deleteUrl(String id) async {
+    try {
+      await FirebaseFirestore.instance.collection('filesUrls').doc(id).delete();
+      print('Document successfully deleted');
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
   }
+
+  // static Future<void> deleteUrl(String id){
+  //   log(getUrlCollection().doc(id).toString());
+  //   return getUrlCollection().doc(id).delete();
+  // }
 
   // static Future<void> addUrl(UrlModel model){
   //   var collection = getUrlCollection();

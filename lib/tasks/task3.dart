@@ -17,7 +17,9 @@ class _Task3State extends State<Task3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Task 3"),),
+      appBar: AppBar(
+        title: Text("Task 3"),
+      ),
       body: Container(
         child: Center(
           child: ElevatedButton(
@@ -46,7 +48,6 @@ class _Task3State extends State<Task3> {
           final file = File(pickedFile.path!);
           await ref.putFile(file);
         }
-        
 
         final snackBar = SnackBar(
           content: Text('File Uploaded to FireBase Storage Succefully'),
@@ -66,7 +67,6 @@ class _Task3State extends State<Task3> {
     CollectionReference filesUrls =
         FirebaseFirestore.instance.collection("filesUrls");
 
-
     QuerySnapshot existingUrlsSnapshot = await filesUrls.get();
     Set<String> existingUrls =
         Set.from(existingUrlsSnapshot.docs.map((doc) => doc['url']));
@@ -78,7 +78,7 @@ class _Task3State extends State<Task3> {
       String url = await i.getDownloadURL();
 
       if (!existingUrls.contains(url)) {
-        filesUrls.add({"url": url , "id" : filesUrls.doc().id});
+        filesUrls.add({"url": url, "id": filesUrls.doc().id});
       }
     }
   }
